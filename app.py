@@ -16,6 +16,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
 # Upload Folder
 UPLOAD_FOLDER = 'uploads'
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Initialize Database
@@ -111,17 +112,25 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
 
+    if 'image' not in request.files:
+        return jsonify({'error': 'No file uploaded'})
+
     file = request.files['image']
 
-    filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+    if file.filename == '':
+        return jsonify({'error': 'No file selected'})
 
+    if not allowed_file(file.filename):
+        return jsonify({'error': 'Only jpg/png allowed'})
+
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
     file.save(filepath)
 
     prediction, confidence = predict_image(filepath)
 
     return jsonify({
-        'prediction': prediction,
-        'confidence': confidence
+        'prediction': str(prediction),
+        'confidence': float(confidence)
     })
 
 # Logout Route
