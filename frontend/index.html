@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Image Detector</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>🔍 AI Image Detector</h1>
+
+        <p>
+            Upload an image and instantly discover whether it is
+            AI-generated or an authentic photograph.
+        </p>
+
+        <div class="upload-box">
+
+            <input
+                type="file"
+                id="imageInput"
+                accept="image/*"
+                hidden
+            >
+
+            <label for="imageInput" class="upload-btn">
+                Choose Image
+            </label>
+
+        </div>
+
+        <div class="preview-container">
+            <img id="preview">
+        </div>
+
+        <button id="detectBtn">
+            Analyze Image
+        </button>
+
+        <div id="loader"></div>
+
+        <div id="resultCard">
+            <h2 id="result"></h2>
+            <p id="confidence"></p>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
